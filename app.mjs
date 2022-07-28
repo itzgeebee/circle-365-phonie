@@ -71,11 +71,12 @@ function startApp() {
   }
 
   function render(inp) {
-  
-    providerImage.src = (inp in providers) ? `images/${inp}.png` : 'images/spinner.svg'
+
+
     document.body.style.backgroundImage = colourGradients[inp];
     resultText.style.color = (inp === `mtn`) ? `green` : `red`;
     resultText.textContent = (inp === `mtn`) ? "This is a Valid MTN Number" : "This is NOT a Valid MTN Number";
+    providerImage.src = (inp in providers) ? `images/${inp}.png` : 'images/spinner.svg'
 
 
   }
@@ -85,11 +86,12 @@ function startApp() {
     if (!validateInput(telInput)) return;
     if (!checkProvider(telInput)) return;
     telInput.value = "";
+    resultText.textContent = `Phonie validated your number successfully`
   }
   )
   telInput.addEventListener(`input`, (e) => {
     let num = e.target;
-    validateInput(num)
+
     if (num.value.startsWith(`0`) && (num.value).length >= 4) {
       checkProvider(num)
     } else if (num.value.startsWith(`+`) && (num.value).length >= 8) {
@@ -97,6 +99,7 @@ function startApp() {
     }
     else {
       checkProvider(num)
+      validateInput(num)
     }
 
   })
